@@ -1,0 +1,32 @@
+type Invoice @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  LINE: String
+  CONTRACT: String
+  CONTRACTOR: String
+  CHARGE_JOB_NO: Int
+  ChargeJobTRAIN_CONSIST: String
+  ACCOUNT_REC_NO: Int
+  WORK_TRAIN_REQUEST_NO: Int
+  WORK_TRAIN_CONSIST: String
+  ACCOUNT_TRAIN_CONSIST: String
+  LOAD_DATE_AND_TIME: AWSDateTime
+  LOAD_YARD: String
+  WORK_DAYS: String
+  DAYS_OR_NIGHT: String
+  WORK_DATES: AWSDate
+  WORK_HOURS: AWSTime
+  CONTINUOUS_HOURS: Float
+  WORK_LOCATION: String
+  TRACK: String
+  UPLOAD_DATE_AND_TIME: AWSDateTime
+  UPLOAD_YARD: String
+  SPECIAL_INSTRUCTIONS: String
+  PIGGYBACK_WITH: String
+  APPROVED_BY: String
+  REQUESTED: String
+  SERVICE_PLAN: String
+  GENERAL_ORDER_NUMBER: Int
+  SUBMITTED_BY: String
+  TEL: AWSPhone
+  DATE: AWSDate
+}
