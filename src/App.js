@@ -32,6 +32,7 @@ function App() {
   return (
     <div className="App">
       <div className="invoice-form">
+        <h3>REQUEST FOR WORK TRAIN</h3>
         <InvoiceCreateForm onSubmit={handleSubmit} />
       </div>
 
