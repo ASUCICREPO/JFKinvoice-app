@@ -22,13 +22,32 @@ export default function InvoiceCreateForm(props) {
     overrides,
     ...rest
   } = props;
+
+  const formatCurrentDate = () => {
+    const date = new Date();
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // January is 0!
+    const year = date.getFullYear();
+
+    return `${month}/${day}/${year}`;
+  };
+  const formatCurrentDateTime = () => {
+    const date = new Date();
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // January is 0!
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    return `${month}/${day}/${year} ${hours}:${minutes}`;
+  };
   const initialValues = {
     LINE: "6th Avenue IND-14TH STREET",
     CONTRACT: "A-37171",
     CONTRACTOR: "ABC",
     CHARGE_JOB_NO: "12345",
     ChargeJobTRAIN_CONSIST: "BFBFF",
-    ACCOUNT_REC_NO: "",
+    ACCOUNT_REC_NO: "12345",
     WORK_TRAIN_REQUEST_NO: "997",
     WORK_TRAIN_CONSIST: "",
     ACCOUNT_TRAIN_CONSIST: "",
@@ -48,9 +67,9 @@ export default function InvoiceCreateForm(props) {
     APPROVED_BY: "",
     REQUESTED: "",
     SERVICE_PLAN: "",
-    GENERAL_ORDER_NUMBER: "",
+    GENERAL_ORDER_NUMBER: "12554",
     SUBMITTED_BY: "",
-    TEL: "DDDD",
+    TEL: "",
     DATE: "",
   };
   const [LINE, setLINE] = React.useState(initialValues.LINE);
