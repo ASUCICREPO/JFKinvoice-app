@@ -1085,6 +1085,7 @@ export default function InvoiceUpdateForm(props) {
         label="Work hours"
         isRequired={false}
         isReadOnly={false}
+        type="time"
         value={WORK_HOURS}
         onChange={(e) => {
           let { value } = e.target;

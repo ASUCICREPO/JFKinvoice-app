@@ -6,24 +6,11 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
+import { Button, Flex, Grid, TextField, useTheme } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
-import { generateClient } from "aws-amplify/api";
-import { getInvoice } from "../graphql/queries";
-import { updateInvoice } from "../graphql/mutations";
-const client = generateClient();
-export default function InvoiceUpdateForm(props) {
-  const {
-    id: idProp,
-    invoice: invoiceModelProp,
-    onSuccess,
-    onError,
-    onSubmit,
-    onValidate,
-    onChange,
-    overrides,
-    ...rest
-  } = props;
+export default function InvoiceCreateForm(props) {
+  const { onSubmit, onValidate, onChange, overrides, ...rest } = props;
+  const { tokens } = useTheme();
   const initialValues = {
     LINE: "",
     CONTRACT: "",
@@ -122,56 +109,37 @@ export default function InvoiceUpdateForm(props) {
   const [DATE, setDATE] = React.useState(initialValues.DATE);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    const cleanValues = invoiceRecord
-      ? { ...initialValues, ...invoiceRecord }
-      : initialValues;
-    setLINE(cleanValues.LINE);
-    setCONTRACT(cleanValues.CONTRACT);
-    setCONTRACTOR(cleanValues.CONTRACTOR);
-    setCHARGE_JOB_NO(cleanValues.CHARGE_JOB_NO);
-    setChargeJobTRAIN_CONSIST(cleanValues.ChargeJobTRAIN_CONSIST);
-    setACCOUNT_REC_NO(cleanValues.ACCOUNT_REC_NO);
-    setWORK_TRAIN_REQUEST_NO(cleanValues.WORK_TRAIN_REQUEST_NO);
-    setWORK_TRAIN_CONSIST(cleanValues.WORK_TRAIN_CONSIST);
-    setACCOUNT_TRAIN_CONSIST(cleanValues.ACCOUNT_TRAIN_CONSIST);
-    setLOAD_DATE_AND_TIME(cleanValues.LOAD_DATE_AND_TIME);
-    setLOAD_YARD(cleanValues.LOAD_YARD);
-    setWORK_DAYS(cleanValues.WORK_DAYS);
-    setDAYS_OR_NIGHT(cleanValues.DAYS_OR_NIGHT);
-    setWORK_DATES(cleanValues.WORK_DATES);
-    setWORK_HOURS(cleanValues.WORK_HOURS);
-    setCONTINUOUS_HOURS(cleanValues.CONTINUOUS_HOURS);
-    setWORK_LOCATION(cleanValues.WORK_LOCATION);
-    setTRACK(cleanValues.TRACK);
-    setUPLOAD_DATE_AND_TIME(cleanValues.UPLOAD_DATE_AND_TIME);
-    setUPLOAD_YARD(cleanValues.UPLOAD_YARD);
-    setSPECIAL_INSTRUCTIONS(cleanValues.SPECIAL_INSTRUCTIONS);
-    setPIGGYBACK_WITH(cleanValues.PIGGYBACK_WITH);
-    setAPPROVED_BY(cleanValues.APPROVED_BY);
-    setREQUESTED(cleanValues.REQUESTED);
-    setSERVICE_PLAN(cleanValues.SERVICE_PLAN);
-    setGENERAL_ORDER_NUMBER(cleanValues.GENERAL_ORDER_NUMBER);
-    setSUBMITTED_BY(cleanValues.SUBMITTED_BY);
-    setTEL(cleanValues.TEL);
-    setDATE(cleanValues.DATE);
+    setLINE(initialValues.LINE);
+    setCONTRACT(initialValues.CONTRACT);
+    setCONTRACTOR(initialValues.CONTRACTOR);
+    setCHARGE_JOB_NO(initialValues.CHARGE_JOB_NO);
+    setChargeJobTRAIN_CONSIST(initialValues.ChargeJobTRAIN_CONSIST);
+    setACCOUNT_REC_NO(initialValues.ACCOUNT_REC_NO);
+    setWORK_TRAIN_REQUEST_NO(initialValues.WORK_TRAIN_REQUEST_NO);
+    setWORK_TRAIN_CONSIST(initialValues.WORK_TRAIN_CONSIST);
+    setACCOUNT_TRAIN_CONSIST(initialValues.ACCOUNT_TRAIN_CONSIST);
+    setLOAD_DATE_AND_TIME(initialValues.LOAD_DATE_AND_TIME);
+    setLOAD_YARD(initialValues.LOAD_YARD);
+    setWORK_DAYS(initialValues.WORK_DAYS);
+    setDAYS_OR_NIGHT(initialValues.DAYS_OR_NIGHT);
+    setWORK_DATES(initialValues.WORK_DATES);
+    setWORK_HOURS(initialValues.WORK_HOURS);
+    setCONTINUOUS_HOURS(initialValues.CONTINUOUS_HOURS);
+    setWORK_LOCATION(initialValues.WORK_LOCATION);
+    setTRACK(initialValues.TRACK);
+    setUPLOAD_DATE_AND_TIME(initialValues.UPLOAD_DATE_AND_TIME);
+    setUPLOAD_YARD(initialValues.UPLOAD_YARD);
+    setSPECIAL_INSTRUCTIONS(initialValues.SPECIAL_INSTRUCTIONS);
+    setPIGGYBACK_WITH(initialValues.PIGGYBACK_WITH);
+    setAPPROVED_BY(initialValues.APPROVED_BY);
+    setREQUESTED(initialValues.REQUESTED);
+    setSERVICE_PLAN(initialValues.SERVICE_PLAN);
+    setGENERAL_ORDER_NUMBER(initialValues.GENERAL_ORDER_NUMBER);
+    setSUBMITTED_BY(initialValues.SUBMITTED_BY);
+    setTEL(initialValues.TEL);
+    setDATE(initialValues.DATE);
     setErrors({});
   };
-  const [invoiceRecord, setInvoiceRecord] = React.useState(invoiceModelProp);
-  React.useEffect(() => {
-    const queryData = async () => {
-      const record = idProp
-        ? (
-            await client.graphql({
-              query: getInvoice.replaceAll("__typename", ""),
-              variables: { id: idProp },
-            })
-          )?.data?.getInvoice
-        : invoiceModelProp;
-      setInvoiceRecord(record);
-    };
-    queryData();
-  }, [idProp, invoiceModelProp]);
-  React.useEffect(resetStateValues, [invoiceRecord]);
   const validations = {
     LINE: [],
     CONTRACT: [],
@@ -220,61 +188,44 @@ export default function InvoiceUpdateForm(props) {
     setErrors((errors) => ({ ...errors, [fieldName]: validationResponse }));
     return validationResponse;
   };
-  const convertToLocal = (date) => {
-    const df = new Intl.DateTimeFormat("default", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      calendar: "iso8601",
-      numberingSystem: "latn",
-      hourCycle: "h23",
-    });
-    const parts = df.formatToParts(date).reduce((acc, part) => {
-      acc[part.type] = part.value;
-      return acc;
-    }, {});
-    return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}`;
-  };
   return (
     <Grid
       as="form"
       rowGap="15px"
       columnGap="15px"
-      padding="20px"
+      padding={tokens.space.medium.value}
       onSubmit={async (event) => {
         event.preventDefault();
-        let modelFields = {
-          LINE: LINE ?? null,
-          CONTRACT: CONTRACT ?? null,
-          CONTRACTOR: CONTRACTOR ?? null,
-          CHARGE_JOB_NO: CHARGE_JOB_NO ?? null,
-          ChargeJobTRAIN_CONSIST: ChargeJobTRAIN_CONSIST ?? null,
-          ACCOUNT_REC_NO: ACCOUNT_REC_NO ?? null,
-          WORK_TRAIN_REQUEST_NO: WORK_TRAIN_REQUEST_NO ?? null,
-          WORK_TRAIN_CONSIST: WORK_TRAIN_CONSIST ?? null,
-          ACCOUNT_TRAIN_CONSIST: ACCOUNT_TRAIN_CONSIST ?? null,
-          LOAD_DATE_AND_TIME: LOAD_DATE_AND_TIME ?? null,
-          LOAD_YARD: LOAD_YARD ?? null,
-          WORK_DAYS: WORK_DAYS ?? null,
-          DAYS_OR_NIGHT: DAYS_OR_NIGHT ?? null,
-          WORK_DATES: WORK_DATES ?? null,
-          WORK_HOURS: WORK_HOURS ?? null,
-          CONTINUOUS_HOURS: CONTINUOUS_HOURS ?? null,
-          WORK_LOCATION: WORK_LOCATION ?? null,
-          TRACK: TRACK ?? null,
-          UPLOAD_DATE_AND_TIME: UPLOAD_DATE_AND_TIME ?? null,
-          UPLOAD_YARD: UPLOAD_YARD ?? null,
-          SPECIAL_INSTRUCTIONS: SPECIAL_INSTRUCTIONS ?? null,
-          PIGGYBACK_WITH: PIGGYBACK_WITH ?? null,
-          APPROVED_BY: APPROVED_BY ?? null,
-          REQUESTED: REQUESTED ?? null,
-          SERVICE_PLAN: SERVICE_PLAN ?? null,
-          GENERAL_ORDER_NUMBER: GENERAL_ORDER_NUMBER ?? null,
-          SUBMITTED_BY: SUBMITTED_BY ?? null,
-          TEL: TEL ?? null,
-          DATE: DATE ?? null,
+        const modelFields = {
+          LINE,
+          CONTRACT,
+          CONTRACTOR,
+          CHARGE_JOB_NO,
+          ChargeJobTRAIN_CONSIST,
+          ACCOUNT_REC_NO,
+          WORK_TRAIN_REQUEST_NO,
+          WORK_TRAIN_CONSIST,
+          ACCOUNT_TRAIN_CONSIST,
+          LOAD_DATE_AND_TIME,
+          LOAD_YARD,
+          WORK_DAYS,
+          DAYS_OR_NIGHT,
+          WORK_DATES,
+          WORK_HOURS,
+          CONTINUOUS_HOURS,
+          WORK_LOCATION,
+          TRACK,
+          UPLOAD_DATE_AND_TIME,
+          UPLOAD_YARD,
+          SPECIAL_INSTRUCTIONS,
+          PIGGYBACK_WITH,
+          APPROVED_BY,
+          REQUESTED,
+          SERVICE_PLAN,
+          GENERAL_ORDER_NUMBER,
+          SUBMITTED_BY,
+          TEL,
+          DATE,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -295,41 +246,14 @@ export default function InvoiceUpdateForm(props) {
         if (validationResponses.some((r) => r.hasError)) {
           return;
         }
-        if (onSubmit) {
-          modelFields = onSubmit(modelFields);
-        }
-        try {
-          Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value === "") {
-              modelFields[key] = null;
-            }
-          });
-          await client.graphql({
-            query: updateInvoice.replaceAll("__typename", ""),
-            variables: {
-              input: {
-                id: invoiceRecord.id,
-                ...modelFields,
-              },
-            },
-          });
-          if (onSuccess) {
-            onSuccess(modelFields);
-          }
-        } catch (err) {
-          if (onError) {
-            const messages = err.errors.map((e) => e.message).join("\n");
-            onError(modelFields, messages);
-          }
-        }
+        await onSubmit(modelFields);
       }}
-      {...getOverrideProps(overrides, "InvoiceUpdateForm")}
+      {...getOverrideProps(overrides, "InvoiceCreateForm")}
       {...rest}
     >
       <TextField
         label="Line"
-        isRequired={false}
-        isReadOnly={false}
+        placeholder=" 6th Avenu"
         value={LINE}
         onChange={(e) => {
           let { value } = e.target;
@@ -380,8 +304,6 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Contract"
-        isRequired={false}
-        isReadOnly={false}
         value={CONTRACT}
         onChange={(e) => {
           let { value } = e.target;
@@ -432,8 +354,6 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Contractor"
-        isRequired={false}
-        isReadOnly={false}
         value={CONTRACTOR}
         onChange={(e) => {
           let { value } = e.target;
@@ -484,15 +404,11 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Charge job no"
-        isRequired={false}
-        isReadOnly={false}
         type="number"
         step="any"
         value={CHARGE_JOB_NO}
         onChange={(e) => {
-          let value = isNaN(parseInt(e.target.value))
-            ? e.target.value
-            : parseInt(e.target.value);
+          let { value } = e.target;
           if (onChange) {
             const modelFields = {
               LINE,
@@ -540,8 +456,6 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Charge job train consist"
-        isRequired={false}
-        isReadOnly={false}
         value={ChargeJobTRAIN_CONSIST}
         onChange={(e) => {
           let { value } = e.target;
@@ -594,15 +508,11 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Account rec no"
-        isRequired={false}
-        isReadOnly={false}
         type="number"
         step="any"
         value={ACCOUNT_REC_NO}
         onChange={(e) => {
-          let value = isNaN(parseInt(e.target.value))
-            ? e.target.value
-            : parseInt(e.target.value);
+          let { value } = e.target;
           if (onChange) {
             const modelFields = {
               LINE,
@@ -650,15 +560,11 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Work train request no"
-        isRequired={false}
-        isReadOnly={false}
         type="number"
         step="any"
         value={WORK_TRAIN_REQUEST_NO}
         onChange={(e) => {
-          let value = isNaN(parseInt(e.target.value))
-            ? e.target.value
-            : parseInt(e.target.value);
+          let { value } = e.target;
           if (onChange) {
             const modelFields = {
               LINE,
@@ -708,8 +614,6 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Work train consist"
-        isRequired={false}
-        isReadOnly={false}
         value={WORK_TRAIN_CONSIST}
         onChange={(e) => {
           let { value } = e.target;
@@ -762,8 +666,6 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Account train consist"
-        isRequired={false}
-        isReadOnly={false}
         value={ACCOUNT_TRAIN_CONSIST}
         onChange={(e) => {
           let { value } = e.target;
@@ -816,15 +718,10 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Load date and time"
-        isRequired={false}
-        isReadOnly={false}
         type="datetime-local"
-        value={
-          LOAD_DATE_AND_TIME && convertToLocal(new Date(LOAD_DATE_AND_TIME))
-        }
+        value={LOAD_DATE_AND_TIME}
         onChange={(e) => {
-          let value =
-            e.target.value === "" ? "" : new Date(e.target.value).toISOString();
+          let { value } = e.target;
           if (onChange) {
             const modelFields = {
               LINE,
@@ -874,8 +771,6 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Load yard"
-        isRequired={false}
-        isReadOnly={false}
         value={LOAD_YARD}
         onChange={(e) => {
           let { value } = e.target;
@@ -926,8 +821,6 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Work days"
-        isRequired={false}
-        isReadOnly={false}
         value={WORK_DAYS}
         onChange={(e) => {
           let { value } = e.target;
@@ -978,8 +871,6 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Days or night"
-        isRequired={false}
-        isReadOnly={false}
         value={DAYS_OR_NIGHT}
         onChange={(e) => {
           let { value } = e.target;
@@ -1030,8 +921,6 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Work dates"
-        isRequired={false}
-        isReadOnly={false}
         type="date"
         value={WORK_DATES}
         onChange={(e) => {
@@ -1083,8 +972,7 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Work hours"
-        isRequired={false}
-        isReadOnly={false}
+        type="time"
         value={WORK_HOURS}
         onChange={(e) => {
           let { value } = e.target;
@@ -1135,15 +1023,11 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Continuous hours"
-        isRequired={false}
-        isReadOnly={false}
         type="number"
         step="any"
         value={CONTINUOUS_HOURS}
         onChange={(e) => {
-          let value = isNaN(parseFloat(e.target.value))
-            ? e.target.value
-            : parseFloat(e.target.value);
+          let { value } = e.target;
           if (onChange) {
             const modelFields = {
               LINE,
@@ -1191,8 +1075,6 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Work location"
-        isRequired={false}
-        isReadOnly={false}
         value={WORK_LOCATION}
         onChange={(e) => {
           let { value } = e.target;
@@ -1243,8 +1125,6 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Track"
-        isRequired={false}
-        isReadOnly={false}
         value={TRACK}
         onChange={(e) => {
           let { value } = e.target;
@@ -1295,15 +1175,10 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Upload date and time"
-        isRequired={false}
-        isReadOnly={false}
         type="datetime-local"
-        value={
-          UPLOAD_DATE_AND_TIME && convertToLocal(new Date(UPLOAD_DATE_AND_TIME))
-        }
+        value={UPLOAD_DATE_AND_TIME}
         onChange={(e) => {
-          let value =
-            e.target.value === "" ? "" : new Date(e.target.value).toISOString();
+          let { value } = e.target;
           if (onChange) {
             const modelFields = {
               LINE,
@@ -1353,8 +1228,6 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Upload yard"
-        isRequired={false}
-        isReadOnly={false}
         value={UPLOAD_YARD}
         onChange={(e) => {
           let { value } = e.target;
@@ -1405,8 +1278,6 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Special instructions"
-        isRequired={false}
-        isReadOnly={false}
         value={SPECIAL_INSTRUCTIONS}
         onChange={(e) => {
           let { value } = e.target;
@@ -1459,8 +1330,6 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Piggyback with"
-        isRequired={false}
-        isReadOnly={false}
         value={PIGGYBACK_WITH}
         onChange={(e) => {
           let { value } = e.target;
@@ -1511,8 +1380,6 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Approved by"
-        isRequired={false}
-        isReadOnly={false}
         value={APPROVED_BY}
         onChange={(e) => {
           let { value } = e.target;
@@ -1563,8 +1430,6 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Requested"
-        isRequired={false}
-        isReadOnly={false}
         value={REQUESTED}
         onChange={(e) => {
           let { value } = e.target;
@@ -1615,8 +1480,6 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Service plan"
-        isRequired={false}
-        isReadOnly={false}
         value={SERVICE_PLAN}
         onChange={(e) => {
           let { value } = e.target;
@@ -1667,15 +1530,11 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="General order number"
-        isRequired={false}
-        isReadOnly={false}
         type="number"
         step="any"
         value={GENERAL_ORDER_NUMBER}
         onChange={(e) => {
-          let value = isNaN(parseInt(e.target.value))
-            ? e.target.value
-            : parseInt(e.target.value);
+          let { value } = e.target;
           if (onChange) {
             const modelFields = {
               LINE,
@@ -1725,8 +1584,6 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Submitted by"
-        isRequired={false}
-        isReadOnly={false}
         value={SUBMITTED_BY}
         onChange={(e) => {
           let { value } = e.target;
@@ -1777,8 +1634,6 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Tel"
-        isRequired={false}
-        isReadOnly={false}
         type="tel"
         value={TEL}
         onChange={(e) => {
@@ -1830,8 +1685,6 @@ export default function InvoiceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Date"
-        isRequired={false}
-        isReadOnly={false}
         type="date"
         value={DATE}
         onChange={(e) => {
@@ -1886,14 +1739,13 @@ export default function InvoiceUpdateForm(props) {
         {...getOverrideProps(overrides, "CTAFlex")}
       >
         <Button
-          children="Reset"
+          children="Clear"
           type="reset"
           onClick={(event) => {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || invoiceModelProp)}
-          {...getOverrideProps(overrides, "ResetButton")}
+          {...getOverrideProps(overrides, "ClearButton")}
         ></Button>
         <Flex
           gap="15px"
@@ -1903,10 +1755,7 @@ export default function InvoiceUpdateForm(props) {
             children="Submit"
             type="submit"
             variation="primary"
-            isDisabled={
-              !(idProp || invoiceModelProp) ||
-              Object.values(errors).some((e) => e?.hasError)
-            }
+            isDisabled={Object.values(errors).some((e) => e?.hasError)}
             {...getOverrideProps(overrides, "SubmitButton")}
           ></Button>
         </Flex>

@@ -25,10 +25,10 @@ export declare type InvoiceCreateFormInputValues = {
     LINE?: string;
     CONTRACT?: string;
     CONTRACTOR?: string;
-    CHARGE_JOB_NO?: number;
+    CHARGE_JOB_NO?: string;
     ChargeJobTRAIN_CONSIST?: string;
-    ACCOUNT_REC_NO?: number;
-    WORK_TRAIN_REQUEST_NO?: number;
+    ACCOUNT_REC_NO?: string;
+    WORK_TRAIN_REQUEST_NO?: string;
     WORK_TRAIN_CONSIST?: string;
     ACCOUNT_TRAIN_CONSIST?: string;
     LOAD_DATE_AND_TIME?: string;
@@ -37,7 +37,7 @@ export declare type InvoiceCreateFormInputValues = {
     DAYS_OR_NIGHT?: string;
     WORK_DATES?: string;
     WORK_HOURS?: string;
-    CONTINUOUS_HOURS?: number;
+    CONTINUOUS_HOURS?: string;
     WORK_LOCATION?: string;
     TRACK?: string;
     UPLOAD_DATE_AND_TIME?: string;
@@ -47,7 +47,7 @@ export declare type InvoiceCreateFormInputValues = {
     APPROVED_BY?: string;
     REQUESTED?: string;
     SERVICE_PLAN?: string;
-    GENERAL_ORDER_NUMBER?: number;
+    GENERAL_ORDER_NUMBER?: string;
     SUBMITTED_BY?: string;
     TEL?: string;
     DATE?: string;
@@ -56,10 +56,10 @@ export declare type InvoiceCreateFormValidationValues = {
     LINE?: ValidationFunction<string>;
     CONTRACT?: ValidationFunction<string>;
     CONTRACTOR?: ValidationFunction<string>;
-    CHARGE_JOB_NO?: ValidationFunction<number>;
+    CHARGE_JOB_NO?: ValidationFunction<string>;
     ChargeJobTRAIN_CONSIST?: ValidationFunction<string>;
-    ACCOUNT_REC_NO?: ValidationFunction<number>;
-    WORK_TRAIN_REQUEST_NO?: ValidationFunction<number>;
+    ACCOUNT_REC_NO?: ValidationFunction<string>;
+    WORK_TRAIN_REQUEST_NO?: ValidationFunction<string>;
     WORK_TRAIN_CONSIST?: ValidationFunction<string>;
     ACCOUNT_TRAIN_CONSIST?: ValidationFunction<string>;
     LOAD_DATE_AND_TIME?: ValidationFunction<string>;
@@ -68,7 +68,7 @@ export declare type InvoiceCreateFormValidationValues = {
     DAYS_OR_NIGHT?: ValidationFunction<string>;
     WORK_DATES?: ValidationFunction<string>;
     WORK_HOURS?: ValidationFunction<string>;
-    CONTINUOUS_HOURS?: ValidationFunction<number>;
+    CONTINUOUS_HOURS?: ValidationFunction<string>;
     WORK_LOCATION?: ValidationFunction<string>;
     TRACK?: ValidationFunction<string>;
     UPLOAD_DATE_AND_TIME?: ValidationFunction<string>;
@@ -78,7 +78,7 @@ export declare type InvoiceCreateFormValidationValues = {
     APPROVED_BY?: ValidationFunction<string>;
     REQUESTED?: ValidationFunction<string>;
     SERVICE_PLAN?: ValidationFunction<string>;
-    GENERAL_ORDER_NUMBER?: ValidationFunction<number>;
+    GENERAL_ORDER_NUMBER?: ValidationFunction<string>;
     SUBMITTED_BY?: ValidationFunction<string>;
     TEL?: ValidationFunction<string>;
     DATE?: ValidationFunction<string>;
@@ -119,10 +119,7 @@ export declare type InvoiceCreateFormOverridesProps = {
 export declare type InvoiceCreateFormProps = React.PropsWithChildren<{
     overrides?: InvoiceCreateFormOverridesProps | undefined | null;
 } & {
-    clearOnSuccess?: boolean;
-    onSubmit?: (fields: InvoiceCreateFormInputValues) => InvoiceCreateFormInputValues;
-    onSuccess?: (fields: InvoiceCreateFormInputValues) => void;
-    onError?: (fields: InvoiceCreateFormInputValues, errorMessage: string) => void;
+    onSubmit: (fields: InvoiceCreateFormInputValues) => void;
     onChange?: (fields: InvoiceCreateFormInputValues) => InvoiceCreateFormInputValues;
     onValidate?: InvoiceCreateFormValidationValues;
 } & React.CSSProperties>;

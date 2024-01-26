@@ -21,7 +21,7 @@ export declare type ValidationResponse = {
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type InvoiceCreateFormInputValues = {
+export declare type InvoiceUpdateFormInputValues = {
     LINE?: string;
     CONTRACT?: string;
     CONTRACTOR?: string;
@@ -52,7 +52,7 @@ export declare type InvoiceCreateFormInputValues = {
     TEL?: string;
     DATE?: string;
 };
-export declare type InvoiceCreateFormValidationValues = {
+export declare type InvoiceUpdateFormValidationValues = {
     LINE?: ValidationFunction<string>;
     CONTRACT?: ValidationFunction<string>;
     CONTRACTOR?: ValidationFunction<string>;
@@ -84,8 +84,8 @@ export declare type InvoiceCreateFormValidationValues = {
     DATE?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type InvoiceCreateFormOverridesProps = {
-    InvoiceCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
+export declare type InvoiceUpdateFormOverridesProps = {
+    InvoiceUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
     LINE?: PrimitiveOverrideProps<TextFieldProps>;
     CONTRACT?: PrimitiveOverrideProps<TextFieldProps>;
     CONTRACTOR?: PrimitiveOverrideProps<TextFieldProps>;
@@ -116,14 +116,15 @@ export declare type InvoiceCreateFormOverridesProps = {
     TEL?: PrimitiveOverrideProps<TextFieldProps>;
     DATE?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
-export declare type InvoiceCreateFormProps = React.PropsWithChildren<{
-    overrides?: InvoiceCreateFormOverridesProps | undefined | null;
+export declare type InvoiceUpdateFormProps = React.PropsWithChildren<{
+    overrides?: InvoiceUpdateFormOverridesProps | undefined | null;
 } & {
-    clearOnSuccess?: boolean;
-    onSubmit?: (fields: InvoiceCreateFormInputValues) => InvoiceCreateFormInputValues;
-    onSuccess?: (fields: InvoiceCreateFormInputValues) => void;
-    onError?: (fields: InvoiceCreateFormInputValues, errorMessage: string) => void;
-    onChange?: (fields: InvoiceCreateFormInputValues) => InvoiceCreateFormInputValues;
-    onValidate?: InvoiceCreateFormValidationValues;
+    id?: string;
+    invoice?: any;
+    onSubmit?: (fields: InvoiceUpdateFormInputValues) => InvoiceUpdateFormInputValues;
+    onSuccess?: (fields: InvoiceUpdateFormInputValues) => void;
+    onError?: (fields: InvoiceUpdateFormInputValues, errorMessage: string) => void;
+    onChange?: (fields: InvoiceUpdateFormInputValues) => InvoiceUpdateFormInputValues;
+    onValidate?: InvoiceUpdateFormValidationValues;
 } & React.CSSProperties>;
-export default function InvoiceCreateForm(props: InvoiceCreateFormProps): React.ReactElement;
+export default function InvoiceUpdateForm(props: InvoiceUpdateFormProps): React.ReactElement;

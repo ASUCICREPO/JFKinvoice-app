@@ -22,25 +22,10 @@ export default function InvoiceCreateForm(props) {
     overrides,
     ...rest
   } = props;
+  const now = new Date();
+  const isoDateTime = now.toISOString(); // Full ISO date and time string
+  const isoDate = isoDateTime.split("T")[0];
 
-  const formatCurrentDate = () => {
-    const date = new Date();
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // January is 0!
-    const year = date.getFullYear();
-
-    return `${month}/${day}/${year}`;
-  };
-  const formatCurrentDateTime = () => {
-    const date = new Date();
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // January is 0!
-    const year = date.getFullYear();
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-
-    return `${month}/${day}/${year} ${hours}:${minutes}`;
-  };
   const initialValues = {
     LINE: "6th Avenue IND-14TH STREET",
     CONTRACT: "A-37171",
@@ -51,16 +36,16 @@ export default function InvoiceCreateForm(props) {
     WORK_TRAIN_REQUEST_NO: "997",
     WORK_TRAIN_CONSIST: "",
     ACCOUNT_TRAIN_CONSIST: "",
-    LOAD_DATE_AND_TIME: "",
+    LOAD_DATE_AND_TIME: isoDateTime,
     LOAD_YARD: "26th Street",
     WORK_DAYS: "",
     DAYS_OR_NIGHT: "",
-    WORK_DATES: "",
+    WORK_DATES: isoDate,
     WORK_HOURS: "",
     CONTINUOUS_HOURS: "40",
     WORK_LOCATION: "14th Street",
     TRACK: "B1",
-    UPLOAD_DATE_AND_TIME: "",
+    UPLOAD_DATE_AND_TIME: isoDateTime,
     UPLOAD_YARD: "",
     SPECIAL_INSTRUCTIONS: "",
     PIGGYBACK_WITH: "",
@@ -69,9 +54,10 @@ export default function InvoiceCreateForm(props) {
     SERVICE_PLAN: "",
     GENERAL_ORDER_NUMBER: "12554",
     SUBMITTED_BY: "",
-    TEL: "",
-    DATE: "",
+    TEL: "7018162399",
+    DATE: isoDate,
   };
+
   const [LINE, setLINE] = React.useState(initialValues.LINE);
   const [CONTRACT, setCONTRACT] = React.useState(initialValues.CONTRACT);
   const [CONTRACTOR, setCONTRACTOR] = React.useState(initialValues.CONTRACTOR);
@@ -1085,7 +1071,6 @@ export default function InvoiceCreateForm(props) {
         label="Work hours"
         isRequired={false}
         isReadOnly={false}
-        type="time"
         value={WORK_HOURS}
         onChange={(e) => {
           let { value } = e.target;

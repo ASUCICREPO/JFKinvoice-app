@@ -14,7 +14,7 @@ type Invoice @model @auth(rules: [{allow: public}]) {
   WORK_DAYS: String
   DAYS_OR_NIGHT: String
   WORK_DATES: AWSDate
-  WORK_HOURS: AWSTime
+  WORK_HOURS: String
   CONTINUOUS_HOURS: Float
   WORK_LOCATION: String
   TRACK: String
@@ -30,3 +30,4 @@ type Invoice @model @auth(rules: [{allow: public}]) {
   TEL: AWSPhone
   DATE: AWSDate
 }
+ 
