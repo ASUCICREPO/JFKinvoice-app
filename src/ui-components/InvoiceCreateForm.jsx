@@ -28,11 +28,11 @@ export default function InvoiceCreateForm(props) {
 
   const initialValues = {
     LINE: "6th Avenue IND-14TH STREET",
-    CONTRACT: "A-37171",
+    CONTRACT: "",
     CONTRACTOR: "ABC",
     CHARGE_JOB_NO: "12345",
     ChargeJobTRAIN_CONSIST: "BFBFF",
-    ACCOUNT_REC_NO: "12345",
+    ACCOUNT_REC_NO: "",
     WORK_TRAIN_REQUEST_NO: "997",
     WORK_TRAIN_CONSIST: "",
     ACCOUNT_TRAIN_CONSIST: "",
@@ -366,7 +366,7 @@ export default function InvoiceCreateForm(props) {
       ></TextField>
       <TextField
         label="Contract"
-        isRequired={false}
+        isRequired={true}
         isReadOnly={false}
         value={CONTRACT}
         onChange={(e) => {
@@ -580,7 +580,7 @@ export default function InvoiceCreateForm(props) {
       ></TextField>
       <TextField
         label="Account rec no"
-        isRequired={false}
+        isRequired={true}
         isReadOnly={false}
         type="number"
         step="any"
@@ -1711,7 +1711,7 @@ export default function InvoiceCreateForm(props) {
       ></TextField>
       <TextField
         label="Submitted by"
-        isRequired={false}
+        isRequired={true}
         isReadOnly={false}
         value={SUBMITTED_BY}
         onChange={(e) => {
