@@ -28,14 +28,12 @@ function App() {
     setShowModal(false);
     setIsSubmitted(false);
   };
-
   return (
     <div className="App">
       <div className="invoice-form">
         <h3>REQUEST FOR WORK TRAIN</h3>
-        <InvoiceCreateForm onSubmit={handleSubmit} />
+        <InvoiceCreateForm />
       </div>
-
       {showModal && (
         <div className="modal-overlay">
           <div className="modal">
