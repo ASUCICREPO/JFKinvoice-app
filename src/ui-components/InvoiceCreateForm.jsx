@@ -365,7 +365,12 @@ export default function InvoiceCreateForm(props) {
         {...getOverrideProps(overrides, "LINE")}
       ></TextField>
       <TextField
-        label="Contract"
+        label={
+          <span style={{ display: "inline-flex" }}>
+            <span>Contract</span>
+            <span style={{ color: "red" }}>*</span>
+          </span>
+        }
         isRequired={true}
         isReadOnly={false}
         value={CONTRACT}
@@ -579,7 +584,12 @@ export default function InvoiceCreateForm(props) {
         {...getOverrideProps(overrides, "ChargeJobTRAIN_CONSIST")}
       ></TextField>
       <TextField
-        label="Account rec no"
+        label={
+          <span style={{ display: "inline-flex" }}>
+            <span>Account rec no</span>
+            <span style={{ color: "red" }}>*</span>
+          </span>
+        }
         isRequired={true}
         isReadOnly={false}
         type="number"
@@ -1496,8 +1506,13 @@ export default function InvoiceCreateForm(props) {
         {...getOverrideProps(overrides, "PIGGYBACK_WITH")}
       ></TextField>
       <TextField
-        label="Approved by"
-        isRequired={false}
+        label={
+          <span style={{ display: "inline-flex" }}>
+            <span>Approved by</span>
+            <span style={{ color: "red" }}>*</span>
+          </span>
+        }
+        isRequired={true}
         isReadOnly={false}
         value={APPROVED_BY}
         onChange={(e) => {
@@ -1710,7 +1725,12 @@ export default function InvoiceCreateForm(props) {
         {...getOverrideProps(overrides, "GENERAL_ORDER_NUMBER")}
       ></TextField>
       <TextField
-        label="Submitted by"
+        label={
+          <span style={{ display: "inline-flex" }}>
+            <span>Submitted by</span>
+            <span style={{ color: "red" }}>*</span>
+          </span>
+        }
         isRequired={true}
         isReadOnly={false}
         value={SUBMITTED_BY}

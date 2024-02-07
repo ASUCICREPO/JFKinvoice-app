@@ -11,16 +11,26 @@ function App() {
   const [showModal, setShowModal] = useState(false);
 
   const handleSubmit = async (modelFields) => {
+    // try {
+    //   const response = await client.graphql({
+    //     query: createInvoice,
+    //     variables: { input: modelFields },
+    //   });
+    //   setIsSubmitted(true);
+    //   setShowModal(true);
+    //   console.log("Form submitted successfully", response);
+    // } catch (error) {
+    //   console.error("Error submitting the form", error);
+    // }
     try {
-      const response = await client.graphql({
-        query: createInvoice,
-        variables: { input: modelFields },
-      });
-      setIsSubmitted(true);
-      setShowModal(true);
-      console.log("Form submitted successfully", response);
+      // Presuming `createInvoice` is an async function that sends data to your backend
+
+      // You might want to check the response
+      setIsSubmitted(true); // Indicate submission success
+      setShowModal(true); // Show the confirmation modal
     } catch (error) {
-      console.error("Error submitting the form", error);
+      console.error("Error submitting form: ", error);
+      // Optionally handle error state here, maybe set an error message state and display it
     }
   };
 
@@ -32,7 +42,7 @@ function App() {
     <div className="App">
       <div className="invoice-form">
         <h3>REQUEST FOR WORK TRAIN</h3>
-        <InvoiceCreateForm />
+        <InvoiceCreateForm onSuccess={handleSubmit} />
       </div>
       {showModal && (
         <div className="modal-overlay">
