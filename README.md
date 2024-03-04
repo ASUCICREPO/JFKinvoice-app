@@ -135,3 +135,13 @@ Before deploying the system, ensure the following conditions are met:
 1. **Accessing Quicksight**:
    - Log in to the AWS Quicksight console.
    - Navigate to your dashboard to view analytics and insights derived from your invoice data.
+
+### Credits
+
+Developer: Chaitrali Shinde
+
+Architect: Arun Arunachalam
+
+General Manager, ASU: Ryan Hendrix
+
+This project is designed and developed with guidance and support from the ASU Cloud Innovation Center.
