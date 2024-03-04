@@ -18,6 +18,8 @@ Based on the attached high-level architecture diagram, here is a description tha
 
 ### High-Level Architecture Description:
 
+![Screenshot](hla.png)
+
 **1. Invoice Upload and Extraction:**
 
 - **Existing Invoice Documents**: Hard copy invoices are digitized and uploaded as PDFs.
