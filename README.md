@@ -1,4 +1,4 @@
-# Invoice Digitalization System\*\*
+# Invoice Digitalization System
 
 ### Description:
 
