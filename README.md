@@ -1,11 +1,11 @@
-**Invoice Digitalization System**
+# Invoice Digitalization System\*\*
 
 ### Description:
 
 The InvoDigitize Suite is a comprehensive cloud-based solution designed to streamline the process of invoice management and digitization. Leveraging the power of AWS services, including Amplify, DynamoDB, Lambda, S3, Quicksight, Amazon Bedrock and AWS Texextractor, it offers a dual-component system that simplifies both the creation and analysis of digital invoices. From automated data entry to insightful business intelligence, the system transforms invoice handling for efficiency and scalability.
 
-Invoice Form: https://main.ddnx95rmp8ck9.amplifyapp.com/
-Invoice uploader: https://main.d8he5p2xkb6ya.amplifyapp.com/
+- Invoice Form: https://main.ddnx95rmp8ck9.amplifyapp.com/
+- Invoice uploader: https://main.d8he5p2xkb6ya.amplifyapp.com/
 
 ### Overview:
 
@@ -51,8 +51,6 @@ Based on the attached high-level architecture diagram, here is a description tha
 The architecture showcases a robust, cloud-based solution that efficiently processes and analyzes invoice data, providing a seamless flow from physical document to actionable business insights.
 
 Certainly! Below is a basic outline for the Prerequisites, Deployment Guide, and User Guide for your InvoDigitize Suite system. You can expand on each section with more detailed steps based on your specific implementation and requirements.
-
----
 
 ## Prerequisites
 
